@@ -12,8 +12,19 @@ namespace RequestUnits
     {
         static void Main(string[] args)
         {
-            using (DocumentClient client = new DocumentClient(new Uri("https://FILLME.documents.azure.com:443/"), "FILLME",
-                new ConnectionPolicy { ConnectionMode = ConnectionMode.Direct, ConnectionProtocol = Protocol.Tcp, MaxConnectionLimit = 1000 }))
+            using (DocumentClient client = new DocumentClient(new Uri("https://ipdevcos.documents.azure.com:443/"), "ypoyM7cbv9VD9EGKqzHImSAnhVvQdVDcHuRzVszBsNXfCtEklaJznwsE0r49N8vbohn0kaIqs8rBaGr394jMPg==",
+                new ConnectionPolicy
+                {
+                    ConnectionMode = ConnectionMode.Direct,
+                    ConnectionProtocol = Protocol.Tcp,
+                    RequestTimeout = new TimeSpan(1, 0, 0),
+                    MaxConnectionLimit = 1000,
+                    RetryOptions = new RetryOptions
+                    {
+                        MaxRetryAttemptsOnThrottledRequests = 10,
+                        MaxRetryWaitTimeInSeconds = 60
+                    }
+                }))
             {
                 RunAsync(client).Wait();
             }
@@ -21,6 +32,9 @@ namespace RequestUnits
 
         private static async Task RunAsync(DocumentClient client)
         {
+            Database db = client.CreateDatabaseIfNotExistsAsync(new Database { Id = "db" }).Result;
+
+
             // Get a 1KB document by ID
             ResourceResponse<Document> kbReadResponse = await client.ReadDocumentAsync(UriFactory.CreateDocumentUri("db", "demo", "1kb-document"));
             Console.WriteLine("Read document completed with {0} RUs", kbReadResponse.RequestCharge);

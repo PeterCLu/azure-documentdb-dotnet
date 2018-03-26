@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2DF914B1-91A8-4C78-989B-64D1ABEF6A17}"
 	ProjectSection(SolutionItems) = preProject
@@ -39,6 +39,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geospatial", "Geospatial\Geospatial.csproj", "{B0A55C76-4470-482E-BD16-5AA96068FE61}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChangeFeed", "ChangeFeed\ChangeFeed.csproj", "{7FA488B0-ECAC-4614-94BD-4570FDBACBF3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RequestUnits", "..\request-units\RequestUnits.csproj", "{86501036-7116-4FA4-BFF8-C3A3DCCA8D20}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -86,11 +88,18 @@ Global
 		{7FA488B0-ECAC-4614-94BD-4570FDBACBF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FA488B0-ECAC-4614-94BD-4570FDBACBF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FA488B0-ECAC-4614-94BD-4570FDBACBF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86501036-7116-4FA4-BFF8-C3A3DCCA8D20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86501036-7116-4FA4-BFF8-C3A3DCCA8D20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86501036-7116-4FA4-BFF8-C3A3DCCA8D20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86501036-7116-4FA4-BFF8-C3A3DCCA8D20}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{16C11979-9B7C-4F35-BCD1-CAC434D79467} = {2DF914B1-91A8-4C78-989B-64D1ABEF6A17}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CF446D0A-051A-4B7F-81F8-F7F152931D59}
 	EndGlobalSection
 EndGlobal
