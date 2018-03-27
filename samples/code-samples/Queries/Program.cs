@@ -73,137 +73,152 @@
             //--------------------------------------------------------------------------------------------------------
             // There are three ways of writing queries in the .NET SDK for DocumentDB, 
             // using the SQL Query Grammar, using LINQ Provider with Query and with Lambda. 
-            // This sample will show each query using all methods. 
-            // It is entirely up to you which style of query you write as they result in exactly the same query being 
-            // executed on the service. 
+            // This sample will show how to write SQL Query Grammar using asynchronous requests.
             // 
-            // There are some occasions when one syntax has advantages over others, but it's your choice which to use when
+            // This sample will also show how to display request charges for throughput analysis and estimation.
             //--------------------------------------------------------------------------------------------------------
 
-            // Querying for equality using ==
-            await QueryWithEquality(collectionUri);
+            // Querying for equality using a single filter
+            await QueryWithOneFilter(collectionUri);
+
+            // Querying for equality using a double filter
+            await QueryWithTwoFilters(collectionUri);
 
             // Querying using range operators like >, <, >=, <=
-            await QueryWithRangeOperatorsOnNumbers(collectionUri);
             await QueryWithRangeOperatorsDateTimes(collectionUri);
 
-            // Query with aggregate operators - Sum, Min, Max, Average, and Count
-            await QueryWithAggregates(collectionUri);
+            // Query a single join
+            await QueryWithSingleJoin(collectionUri);
+
+            // Query with a double join
+            await QueryWithDoubleJoin(collectionUri);
 
             // Uncomment to Cleanup
             // await client.DeleteDatabaseAsync(UriFactory.CreateDatabaseUri(databaseId));
         }
 
-        private static async Task QueryWithEquality(Uri collectionUri)
+        private static async Task QueryWithOneFilter(Uri collectionUri)
         {
-            Console.WriteLine("Query equality");
+            Console.WriteLine("Simple query equality. Find family where id = 'AndersenFamily'");
 
-            // Query for 100 1KB documents
-            IDocumentQuery<dynamic> query = client.CreateDocumentQuery(collectionUri,
-                "SELECT f.LastName AS Name, f.Address.City AS City " +
-                "FROM Families f " + 
-                "WHERE f.id = 'AndersenFamily' OR f.Address.City = 'NY'",DefaultOptions).AsDocumentQuery();
+            // Query using a single filter on id
+            IDocumentQuery<dynamic> equalityQuery = client.CreateDocumentQuery(collectionUri,
+                "SELECT * FROM Families f WHERE f.id = 'AndersenFamily'", DefaultOptions).AsDocumentQuery();
 
-            FeedResponse<Document> queryResponse = await query.ExecuteNextAsync<Document>();
-            Console.WriteLine("Query TOP 100 documents completed with {0} results and {1} RUs", queryResponse.Count, queryResponse.RequestCharge);
-            
+            // Asynchronous call to perform the query
+            FeedResponse<dynamic> result = await equalityQuery.ExecuteNextAsync();
 
+            // Display our results
+            foreach (var item in result.ToList())
+            {
+                Console.WriteLine(item);
+            }
 
+            // Display request charge from asynchronous response
+            Console.WriteLine("Request Charge: {0}", result.RequestCharge);
+            Console.WriteLine("Press enter key to continue");
+            Console.ReadKey();
+            Console.WriteLine();
+        }
 
+        private static async Task QueryWithTwoFilters(Uri collectionUri)
+        {
+            Console.WriteLine("Filter on two properties. Find families where id is 'AndersenFamily' OR city is 'NY'");
 
-            // Query using a filter on two properties and include a custom projection
-
-            // 4 SQL Query
+            // Query using a double filter on id and city
             IDocumentQuery<dynamic> q = client.CreateDocumentQuery(collectionUri,
                 "SELECT f.LastName AS Name, f.Address.City AS City " +
-                "FROM Families f " + 
-                "WHERE f.id = 'AndersenFamily' OR f.Address.City = 'NY'",DefaultOptions).AsDocumentQuery();
+                "FROM Families f " +
+                "WHERE f.id = 'AndersenFamily' OR f.Address.City = 'NY'", DefaultOptions).AsDocumentQuery();
 
+            // Asynchronous call to perform the query
             FeedResponse<dynamic> result = await q.ExecuteNextAsync();
+
+            // Display our results
             foreach (var item in result.ToList())
             {
                 Console.WriteLine("The {0} family live in {1}", item.Name, item.City);
             }
 
+            // Display request charge from asynchronous response
             Console.WriteLine("Request Charge: {0}", result.RequestCharge);
-        }
-
-
-        private static async Task QueryWithRangeOperatorsOnNumbers(Uri collectionUri)
-        {
-            Console.WriteLine("Queries with Range Operators on Numbers");
-
-            // 4 SQL Query
-            IDocumentQuery<dynamic> q = client.CreateDocumentQuery(collectionUri,
-                "SELECT * FROM Families f WHERE f.Children[0].Grade > 5", DefaultOptions).AsDocumentQuery();
-
-            FeedResponse<dynamic> result = await q.ExecuteNextAsync();
-            foreach (var item in result.ToList())
-            {
-                Console.WriteLine("The {0} family have children over grade 5", item.LastName);
-            }
-
-            Console.WriteLine("Request Charge: {0}", result.RequestCharge);
+            Console.WriteLine("Press enter key to continue");
+            Console.ReadKey();
+            Console.WriteLine();
         }
 
         private static async Task QueryWithRangeOperatorsDateTimes(Uri collectionUri)
         {
-            Console.WriteLine("Query with range oeprator date time");
-            // SQL Query
+            Console.WriteLine("Query using a range operator on a date time");
+
+            // Query using a range operator on a datetime.
             IDocumentQuery<dynamic> q = client.CreateDocumentQuery(collectionUri,
                 string.Format("SELECT * FROM c WHERE c.RegistrationDate >= '{0}'",
                 DateTime.UtcNow.AddDays(-3).ToString("o")), DefaultOptions).AsDocumentQuery();
 
+            // Asynchronous call to perform the query
             FeedResponse<dynamic> result = await q.ExecuteNextAsync();
+
+            // Display our results
             foreach (var item in result.ToList())
             {
                 Console.WriteLine("The {0} family registered within the last 3 days", item.LastName);
             }
 
+            // Display request charge from asynchronous response
             Console.WriteLine("Request Charge: {0}", result.RequestCharge);
-        }
-
-        private static async Task QueryWithOrderBy(Uri collectionUri)
-        {
-            Console.WriteLine("Query with order by string");
-
-            // 4 SQL Query
-            IDocumentQuery<dynamic> q = client.CreateDocumentQuery(collectionUri,
-                "SELECT * FROM Families f " + 
-                "WHERE f.LastName = 'Andersen' " + 
-                "ORDER BY f.Address.State DESC", DefaultOptions).AsDocumentQuery();
-
-            FeedResponse<dynamic> result = await q.ExecuteNextAsync();
-            foreach (var item in result.ToList())
-            {
-                Console.WriteLine("The {0} family ordered by address", item.LastName);
+            Console.WriteLine("Press enter key to continue");
+            Console.ReadKey();
+            Console.WriteLine();
             }
 
+        private static async Task QueryWithSingleJoin(Uri collectionUri)
+        {
+            Console.WriteLine("Query using a single join on Families and Children");
+
+            // Query using a single join on families and children
+            IDocumentQuery<dynamic> q = client.CreateDocumentQuery(collectionUri,
+                "SELECT f.id " +
+                "FROM Families f " +
+                "JOIN c IN f.Children", DefaultOptions).AsDocumentQuery();
+
+            // Asynchronous call to perform the query
+            FeedResponse<dynamic> result = await q.ExecuteNextAsync();
+
+            // Display our results
+            foreach (var item in result)
+            {
+                Console.WriteLine(JsonConvert.SerializeObject(item));
+            }
+
+            // Display request charge from asynchronous response
             Console.WriteLine("Request Charge: {0}", result.RequestCharge);
+            Console.WriteLine("Press enter key to continue");
+            Console.ReadKey();
+            Console.WriteLine();
         }
 
-        private static async Task QueryWithAggregates(Uri collectionUri)
+        private static async Task QueryWithDoubleJoin(Uri collectionUri)
         {
-            Console.WriteLine("Query with aggregates, count");
-            
-            // SQL over an array within documents
+            Console.WriteLine("Query using a double join on Families, Children, and Pet");
+
+            // Query using a single join on families and children
             IDocumentQuery<dynamic> q = client.CreateDocumentQuery(collectionUri,
-                "SELECT VALUE COUNT(child) FROM child IN f.Children", DefaultOptions).AsDocumentQuery();
+                "SELECT f.id as family, c.FirstName AS child, p.GivenName AS pet " +
+                "FROM Families f " +
+                "JOIN c IN f.Children " +
+                "JOIN p IN c.Pets ", DefaultOptions).AsDocumentQuery();
 
+            // Asynchronous call to perform the query
             FeedResponse<dynamic> result = await q.ExecuteNextAsync();
-            Console.WriteLine("There are a total of {0} children", result.ToList()[0]);
 
-            Console.WriteLine("Request Charge: {0}", result.RequestCharge);
+            // Display our results
+            foreach (var item in result)
+            {
+                Console.WriteLine(JsonConvert.SerializeObject(item));
+            }
 
-
-            Console.WriteLine("Query with aggregates, Max");
-            // SQL over an array within documents
-            IDocumentQuery<dynamic> maxGradeQuery = client.CreateDocumentQuery(collectionUri,
-                "SELECT VALUE MAX(child.Grade) FROM child IN f.Children", DefaultOptions).AsDocumentQuery();
-
-            result = await maxGradeQuery.ExecuteNextAsync();
-            Console.WriteLine("The max grade of a child is {0}", result.ToList()[0]);
-
+            // Display request charge from asynchronous response
             Console.WriteLine("Request Charge: {0}", result.RequestCharge);
         }
 
