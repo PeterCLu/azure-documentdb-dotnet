@@ -241,7 +241,7 @@ namespace PartitionStats
 
         class CommandLineOptions
         {
-            [Option('a', "account", HelpText = "DocumentDB account endpoint, e.g. https://docdb.documents.azure.com", Required= true)]
+            [Option('a', "account", HelpText = "DocumentDB account endpoint, e.g. https://ipdevcos.documents.azure.com", Required= true)]
             public string DocumentDBEndpoint { get; set; }
 
             [Option('e', "masterKey", HelpText = "DocumentDB master key", Required = true)]

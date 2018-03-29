@@ -8,13 +8,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		appSettings.config = appSettings.config
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollectionManagement", "CollectionManagement\CollectionManagement.csproj", "{F244DE0C-FC94-4D96-AECF-C92BBBAA6627}"
-	ProjectSection(ProjectDependencies) = postProject
-		{16C11979-9B7C-4F35-BCD1-CAC434D79467} = {16C11979-9B7C-4F35-BCD1-CAC434D79467}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentManagement", "DocumentManagement\DocumentManagement.csproj", "{CF8BEC3A-2791-4C56-B036-60CB5AE9367A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{16C11979-9B7C-4F35-BCD1-CAC434D79467}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserManagement", "UserManagement\UserManagement.csproj", "{82B1A5F3-6BDE-4A70-9F3A-17ECEDEA64F1}"
@@ -29,18 +22,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerSideScripts", "Server
 		{16C11979-9B7C-4F35-BCD1-CAC434D79467} = {16C11979-9B7C-4F35-BCD1-CAC434D79467}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseManagement", "DatabaseManagement\DatabaseManagement.csproj", "{2F473ECB-3265-462B-B8F4-D5286883D12A}"
-	ProjectSection(ProjectDependencies) = postProject
-		{16C11979-9B7C-4F35-BCD1-CAC434D79467} = {16C11979-9B7C-4F35-BCD1-CAC434D79467}
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Queries", "Queries\Queries.csproj", "{6B5021ED-8B3A-4E38-92DB-612C4ECDC580}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geospatial", "Geospatial\Geospatial.csproj", "{B0A55C76-4470-482E-BD16-5AA96068FE61}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChangeFeed", "ChangeFeed\ChangeFeed.csproj", "{7FA488B0-ECAC-4614-94BD-4570FDBACBF3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RequestUnits", "..\request-units\RequestUnits.csproj", "{86501036-7116-4FA4-BFF8-C3A3DCCA8D20}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartitionStats", "..\partition-stats\PartitionStats.csproj", "{EDB5F4E5-779B-4D67-BB74-50DBE95642FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,14 +36,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F244DE0C-FC94-4D96-AECF-C92BBBAA6627}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F244DE0C-FC94-4D96-AECF-C92BBBAA6627}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F244DE0C-FC94-4D96-AECF-C92BBBAA6627}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F244DE0C-FC94-4D96-AECF-C92BBBAA6627}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CF8BEC3A-2791-4C56-B036-60CB5AE9367A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CF8BEC3A-2791-4C56-B036-60CB5AE9367A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CF8BEC3A-2791-4C56-B036-60CB5AE9367A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CF8BEC3A-2791-4C56-B036-60CB5AE9367A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{16C11979-9B7C-4F35-BCD1-CAC434D79467}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{16C11979-9B7C-4F35-BCD1-CAC434D79467}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16C11979-9B7C-4F35-BCD1-CAC434D79467}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -72,18 +52,10 @@ Global
 		{FF2F469C-8A1C-4B9C-A83A-0D4712FFCBC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF2F469C-8A1C-4B9C-A83A-0D4712FFCBC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF2F469C-8A1C-4B9C-A83A-0D4712FFCBC9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2F473ECB-3265-462B-B8F4-D5286883D12A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2F473ECB-3265-462B-B8F4-D5286883D12A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2F473ECB-3265-462B-B8F4-D5286883D12A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2F473ECB-3265-462B-B8F4-D5286883D12A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6B5021ED-8B3A-4E38-92DB-612C4ECDC580}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6B5021ED-8B3A-4E38-92DB-612C4ECDC580}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B5021ED-8B3A-4E38-92DB-612C4ECDC580}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B5021ED-8B3A-4E38-92DB-612C4ECDC580}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B0A55C76-4470-482E-BD16-5AA96068FE61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B0A55C76-4470-482E-BD16-5AA96068FE61}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B0A55C76-4470-482E-BD16-5AA96068FE61}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B0A55C76-4470-482E-BD16-5AA96068FE61}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7FA488B0-ECAC-4614-94BD-4570FDBACBF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7FA488B0-ECAC-4614-94BD-4570FDBACBF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FA488B0-ECAC-4614-94BD-4570FDBACBF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -92,6 +64,10 @@ Global
 		{86501036-7116-4FA4-BFF8-C3A3DCCA8D20}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86501036-7116-4FA4-BFF8-C3A3DCCA8D20}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86501036-7116-4FA4-BFF8-C3A3DCCA8D20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDB5F4E5-779B-4D67-BB74-50DBE95642FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDB5F4E5-779B-4D67-BB74-50DBE95642FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDB5F4E5-779B-4D67-BB74-50DBE95642FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDB5F4E5-779B-4D67-BB74-50DBE95642FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
