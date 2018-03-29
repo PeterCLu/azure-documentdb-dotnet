@@ -100,9 +100,11 @@
         private static async Task QueryWithOneFilter(Uri collectionUri)
         {
             Console.WriteLine("Simple query equality. Find family where id = 'AndersenFamily'");
+            Console.WriteLine("SELECT * FROM Families f WHERE f.id = 'AndersenFamily'");
+            Console.WriteLine();
 
             // Query using a single filter on id
-            IDocumentQuery<dynamic> equalityQuery = client.CreateDocumentQuery(collectionUri,
+            IDocumentQuery <dynamic> equalityQuery = client.CreateDocumentQuery(collectionUri,
                 "SELECT * FROM Families f WHERE f.id = 'AndersenFamily'", DefaultOptions).AsDocumentQuery();
 
             // Asynchronous call to perform the query
@@ -116,7 +118,7 @@
 
             // Display request charge from asynchronous response
             Console.WriteLine("Request Charge: {0}", result.RequestCharge);
-            Console.WriteLine("Press enter key to continue");
+            Console.WriteLine("Press enter key to continue********************************************");
             Console.ReadKey();
             Console.WriteLine();
         }
@@ -124,6 +126,10 @@
         private static async Task QueryWithTwoFilters(Uri collectionUri)
         {
             Console.WriteLine("Filter on two properties. Find families where id is 'AndersenFamily' OR city is 'NY'");
+            Console.WriteLine("SELECT f.LastName AS Name, f.Address.City AS City \n" + 
+                "\t FROM Families f \n " +
+                "\t WHERE f.id = 'AndersenFamily' OR f.Address.City = 'NY'");
+            Console.WriteLine();
 
             // Query using a double filter on id and city
             IDocumentQuery<dynamic> q = client.CreateDocumentQuery(collectionUri,
@@ -142,14 +148,16 @@
 
             // Display request charge from asynchronous response
             Console.WriteLine("Request Charge: {0}", result.RequestCharge);
-            Console.WriteLine("Press enter key to continue");
+            Console.WriteLine("Press enter key to continue********************************************");
             Console.ReadKey();
-            Console.WriteLine();
+            Console.WriteLine("");
         }
 
         private static async Task QueryWithRangeOperatorsDateTimes(Uri collectionUri)
         {
             Console.WriteLine("Query using a range operator on a date time");
+            Console.WriteLine("SELECT * FROM c WHERE c.RegistrationDate >= <<DateTime.UtcNow.AddDays(-3).ToString(\"o\"))>>");
+            Console.WriteLine();
 
             // Query using a range operator on a datetime.
             IDocumentQuery<dynamic> q = client.CreateDocumentQuery(collectionUri,
@@ -167,14 +175,18 @@
 
             // Display request charge from asynchronous response
             Console.WriteLine("Request Charge: {0}", result.RequestCharge);
-            Console.WriteLine("Press enter key to continue");
+            Console.WriteLine("Press enter key to continue********************************************");
             Console.ReadKey();
             Console.WriteLine();
-            }
+        }
 
         private static async Task QueryWithSingleJoin(Uri collectionUri)
         {
             Console.WriteLine("Query using a single join on Families and Children");
+            Console.WriteLine("SELECT f.id \n" +
+                "\tFROM Families f \n" +
+                "\tJOIN c IN f.Children");
+            Console.WriteLine();
 
             // Query using a single join on families and children
             IDocumentQuery<dynamic> q = client.CreateDocumentQuery(collectionUri,
@@ -193,14 +205,18 @@
 
             // Display request charge from asynchronous response
             Console.WriteLine("Request Charge: {0}", result.RequestCharge);
-            Console.WriteLine("Press enter key to continue");
+            Console.WriteLine("Press enter key to continue********************************************");
             Console.ReadKey();
-            Console.WriteLine();
+            Console.WriteLine("");
         }
 
         private static async Task QueryWithDoubleJoin(Uri collectionUri)
         {
             Console.WriteLine("Query using a double join on Families, Children, and Pet");
+            Console.WriteLine("SELECT f.id as family, c.FirstName AS child, p.GivenName AS pet \n" +
+                "\tFROM Families f \n" +
+                "\tJOIN c IN f.Children \n" +
+                "\tJOIN p IN c.Pets ");
 
             // Query using a single join on families and children
             IDocumentQuery<dynamic> q = client.CreateDocumentQuery(collectionUri,
