@@ -60,6 +60,7 @@
             collectionDefinition.IndexingPolicy = new IndexingPolicy(new RangeIndex(DataType.String) { Precision = -1 });
             collectionDefinition.PartitionKey.Paths.Add("/deviceId");
 
+            // Create the collection for this sample
             await client.CreateDocumentCollectionIfNotExistsAsync(
                 UriFactory.CreateDatabaseUri(databaseId),
                 collectionDefinition,
@@ -69,7 +70,8 @@
 
             Console.WriteLine("Inserting 100 documents");
             List<Task> insertTasks = new List<Task>();
-            /*
+            
+            // Insert 100 documents
             for (int i = 0; i < 100; i++)
             {
                 insertTasks.Add(client.CreateDocumentAsync(
@@ -78,11 +80,12 @@
             }
 
             await Task.WhenAll(insertTasks);
-            */
+            
             // Returns all documents in the collection.
             Console.WriteLine("Reading all changes from the beginning");
             Dictionary<string, string> checkpoints = await GetChanges(client, collectionUri, new Dictionary<string, string>());
 
+            // Insert 2 new documents
             Console.WriteLine("Inserting 2 new documents");
             await client.CreateDocumentAsync(
                 collectionUri, 

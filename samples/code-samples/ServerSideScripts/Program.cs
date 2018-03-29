@@ -29,7 +29,7 @@
 
         //Read the DocumentDB endpointUrl and authorisationKeys from config
         //These values are available from the Azure Management Portal on the DocumentDB Account Blade under "Keys"
-        //NB > Keep these values in a safe & secure location. Together they provide Administrative access to your DocDB account
+        //NB > Keep these values in a safe & secure location. Together they provide Administrative accedss to your DocDB account
         private static readonly string EndpointUrl = ConfigurationManager.AppSettings["EndPointUrl"];
         private static readonly string AuthorizationKey = ConfigurationManager.AppSettings["AuthorizationKey"];
 
@@ -67,6 +67,7 @@
                 UriFactory.CreateDatabaseUri(database.Id),
                 collectionDefinition,
                 new RequestOptions { OfferThroughput = 1000 });
+
 
             //Run a simple script
             await RunSimpleScript(collection.SelfLink);
