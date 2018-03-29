@@ -68,27 +68,40 @@
                 collectionDefinition,
                 new RequestOptions { OfferThroughput = 1000 });
 
-
+            Console.WriteLine("Press enter key to continue********************************************");
+            Console.ReadKey();
             //Run a simple script
             await RunSimpleScript(collection.SelfLink);
 
+            Console.WriteLine("Press enter key to continue********************************************");
+            Console.ReadKey();
             // Run Bulk Import
             await RunBulkImport(collection.SelfLink);
 
+            Console.WriteLine("Press enter key to continue********************************************");
+            Console.ReadKey();
             // Run OrderBy
             await RunOrderBy(collection.SelfLink);
 
+            Console.WriteLine("Press enter key to continue********************************************");
+            Console.ReadKey();
             // Run Pre-Trigger
             await RunPreTrigger(collection.SelfLink);
 
+            Console.WriteLine("Press enter key to continue********************************************");
+            Console.ReadKey();
             // Run Post-Trigger
             await RunPostTrigger(collection.SelfLink);
 
+            Console.WriteLine("Press enter key to continue********************************************");
+            Console.ReadKey();
             // Run UDF
             await RunUDF(collection.SelfLink);
 
+            Console.WriteLine("Press enter key to continue********************************************");
+            Console.ReadKey();
             //// Uncomment to Cleanup
-            //await client.DeleteDatabaseAsync(database.SelfLink);
+            await client.DeleteDatabaseAsync(database.SelfLink);
         }
 
         /// <summary>

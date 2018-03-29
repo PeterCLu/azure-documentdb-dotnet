@@ -85,6 +85,9 @@
             Console.WriteLine("Reading all changes from the beginning");
             Dictionary<string, string> checkpoints = await GetChanges(client, collectionUri, new Dictionary<string, string>());
 
+            Console.WriteLine("Press enter key to continue********************************************");
+            Console.ReadKey();
+
             // Insert 2 new documents
             Console.WriteLine("Inserting 2 new documents");
             await client.CreateDocumentAsync(

@@ -84,17 +84,33 @@
             // Init
             var database = await client.CreateDatabaseIfNotExistsAsync(new Database { Id = databaseId });
 
+
+            Console.WriteLine("Press enter key to continue********************************************");
+            Console.ReadKey();
+
             // 1. Exclude a document from the index
             await ExplicitlyExcludeFromIndex();
+
+            Console.WriteLine("Press enter key to continue********************************************");
+            Console.ReadKey();
 
             // 2. Use manual (instead of automatic) indexing
             await UseManualIndexing();
 
+            Console.WriteLine("Press enter key to continue********************************************");
+            Console.ReadKey();
+
             // 3. Use lazy (instead of consistent) indexing
             await UseLazyIndexing();
 
+            Console.WriteLine("Press enter key to continue********************************************");
+            Console.ReadKey();
+
             // 4. Exclude specified document paths from the index
             await ExcludePathsFromIndex();
+
+            Console.WriteLine("Press enter key to continue********************************************");
+            Console.ReadKey();
 
             // Uncomment to Cleanup
             await client.DeleteDatabaseAsync(UriFactory.CreateDatabaseUri(databaseId));
